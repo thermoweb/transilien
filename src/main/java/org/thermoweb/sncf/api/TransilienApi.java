@@ -27,22 +27,24 @@
 
 package org.thermoweb.sncf.api;
 
-import org.thermoweb.sncf.model.Passage;
+import org.apache.log4j.Logger;
+import org.thermoweb.sncf.model.Passages;
 
 public class TransilienApi extends BaseApi {
 
     private static String API_URL = "https://api.transilien.com";
+    private static Logger logger = Logger.getLogger(TransilienApi.class);
 
-    public TransilienApi(String login, String password) {
-        super(login, password, API_URL);
+    public TransilienApi() {
+        super(API_URL);
     }
 
-    public Passage nextTrain(Long gareId) {
-        return this.doGet("", Passage.class);
+    public Passages nextTrain(Long gareId) {
+        return this.doGet("", Passages.class);
     }
 
-    public Passage nextTrainTo(int fromGareId, int toGareId) {
-        return this.doGet("/gare/" + fromGareId + "/depart/" + toGareId, Passage.class);
+    public Passages nextTrainTo(int fromGareId, int toGareId) {
+        return this.doGet("/gare/" + fromGareId + "/depart/" + toGareId, Passages.class);
     }
 
 }
