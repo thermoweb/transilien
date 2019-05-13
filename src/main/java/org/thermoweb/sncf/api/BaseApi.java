@@ -57,19 +57,8 @@ public class BaseApi {
         this.baseUrl = url;
     }
 
-    protected Passages doGet(String url, Class type) {
-        String result = executeGet(this.getBaseUrl() + url);
-        try {
-            //Create JAXB Context
-            JAXBContext jaxbContext = JAXBContext.newInstance(type);
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
-            return (Passages) unmarshaller.unmarshal(new StringReader(result));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    public String doGet(String url) {
+        return executeGet(this.getBaseUrl() + url);
     }
 
     private String executeGet(String url) {
