@@ -11,7 +11,7 @@
 .mtj.tmp/
 
 # properties
-*.properties
+sncf.properties
 
 # Package Files #
 *.jar
