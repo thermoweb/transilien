@@ -1,4 +1,4 @@
-package org.thermoweb.sncf.api;
+package org.thermoweb.sncf.api.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.thermoweb.sncf.model.Departures;
@@ -7,7 +7,7 @@ import org.thermoweb.sncf.model.Link;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SncfApiResponse {
+public class SncfDeparturesResponse {
 
     private Object pagination;
     private List<Link> links;
