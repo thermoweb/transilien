@@ -1,5 +1,6 @@
-package org.thermoweb.sncf;
+package org.thermoweb.transilien;
 
+import org.apache.log4j.Logger;
 import org.thermoweb.sncf.api.TransilienApi;
 import org.thermoweb.sncf.model.Passages;
 
@@ -11,6 +12,7 @@ import java.io.StringReader;
 public class TransilienClient {
 
     private TransilienApi api;
+    private static Logger logger = Logger.getLogger(TransilienClient.class);
 
     public TransilienClient() {
         this.api = new TransilienApi();
@@ -37,7 +39,7 @@ public class TransilienClient {
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             return (Passages) unmarshaller.unmarshal(new StringReader(response));
         } catch (JAXBException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             return null;
         }
     }

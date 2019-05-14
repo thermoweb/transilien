@@ -27,26 +27,38 @@
 
 package org.thermoweb.sncf;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.thermoweb.sncf.api.SncfApi;
 import org.thermoweb.sncf.api.SncfApiResponse;
 import org.thermoweb.sncf.model.Departures;
 import org.thermoweb.sncf.model.StopArea;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SncfClient {
 
-    private String login;
+    private SncfApi api;
+    private static Logger logger = Logger.getLogger(SncfClient.class);
 
-    public SncfClient(String login) {
-        this.login = login;
+    public SncfClient() {
+        this.api = new SncfApi();
     }
 
     public List<Departures> getNextDepartures(StopArea stopArea) {
-        String stopPointDeparturesUrl = "stop_areas/" + stopArea.getId() + "/departures";
-        SncfApi sncfApi = new SncfApi(stopPointDeparturesUrl, this.login);
-        SncfApiResponse response = sncfApi.doGet();
+        String result = this.api.nextDepartures(stopArea.getId());
+        ObjectMapper mapper = new ObjectMapper();
+        SncfApiResponse sncfResponse;
+        try {
+            sncfResponse = mapper.readValue(result, SncfApiResponse.class);
+            logger.debug(sncfResponse);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
 
-        return response.getDepartures();
+        return sncfResponse.getDepartures();
     }
 }

@@ -1,4 +1,4 @@
-package org.thermoweb.sncf;
+package org.thermoweb.transilien;
 
 import org.apache.log4j.Logger;
 import org.thermoweb.sncf.model.Passages;

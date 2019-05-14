@@ -32,32 +32,27 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.thermoweb.sncf.model.Passages;
+import org.apache.log4j.Logger;
 import org.thermoweb.sncf.utils.SncfProperties;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.util.Base64;
 
 public class BaseApi {
 
+    private static Logger logger = Logger.getLogger(BaseApi.class);
+
     private String login;
     private String password;
     private String baseUrl;
-    private SncfProperties properties= SncfProperties.getInstance();
 
-    public BaseApi(String url) {
-        this.login = properties.getProperty("sncf.login");
-        this.password = properties.getProperty("sncf.password");
+    BaseApi(String url) {
         this.baseUrl = url;
     }
 
-    public String doGet(String url) {
+    String doGet(String url) {
         return executeGet(this.getBaseUrl() + url);
     }
 
@@ -74,7 +69,8 @@ public class BaseApi {
             HttpResponse response = httpclient.execute(request);
             result = getResponseAsString(response);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
+            return "";
         }
         return result;
     }
