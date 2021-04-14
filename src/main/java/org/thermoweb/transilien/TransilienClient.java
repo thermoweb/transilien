@@ -11,8 +11,8 @@ import java.io.StringReader;
 
 public class TransilienClient {
 
-    private TransilienApi api;
-    private static Logger logger = Logger.getLogger(TransilienClient.class);
+    private final TransilienApi api;
+    private static final Logger logger = Logger.getLogger(TransilienClient.class);
 
     public TransilienClient() {
         this.api = new TransilienApi();

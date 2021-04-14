@@ -5,7 +5,7 @@ import org.thermoweb.sncf.model.Passages;
 
 public class TransilienExample {
 
-    private static Logger logger = Logger.getLogger(TransilienExample.class);
+    private static final Logger logger = Logger.getLogger(TransilienExample.class);
 
     public static void main(String[] args) {
 
